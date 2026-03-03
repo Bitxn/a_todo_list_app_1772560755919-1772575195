@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "baseUrl": "http://localhost:8056",
+  "entities": [
+    {
+      "name": "Task",
+      "endpoint": "/api/tasks"
+    }
+  ]
+}
