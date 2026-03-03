@@ -1,0 +1,284 @@
+{
+  "schemaVersion": "1.0",
+  "projectId": "{{PROJECT_ID}}",
+  "projectName": "{{PROJECT_NAME}}",
+  "generatedAt": "{{GENERATED_AT}}",
+  "lastModified": "2026-03-03T18:16:03.272846",
+  "projectType": "{{PROJECT_TYPE}}",
+  "frontend": {
+    "framework": "react",
+    "language": "typescript",
+    "baseUrl": "http://localhost:5174",
+    "pages": {
+      "{{PageName}}.tsx": {
+        "path": "frontend/src/pages/{{PageName}}.tsx",
+        "route": "{{/route-path}}",
+        "purpose": "{{what this page does}}",
+        "apiCalls": [
+          {
+            "endpoint": "{{/api/endpoint}}",
+            "method": "{{GET|POST|PUT|DELETE}}",
+            "triggeredBy": "{{on mount | on form submit | on button click}}",
+            "requestPayload": {},
+            "responseUsed": []
+          }
+        ],
+        "dependsOnPages": [],
+        "lastModified": "{{TIMESTAMP}}"
+      },
+      "Home.tsx": {
+        "path": "src/pages/Home.tsx",
+        "route": "/",
+        "purpose": "Main view for displaying and managing todo lists.",
+        "lastModified": "2026-03-03T18:00:09.087071+00:00"
+      },
+      "Login.tsx": {
+        "path": "src/pages/Login.tsx",
+        "route": "/login",
+        "purpose": "User login page.",
+        "lastModified": "2026-03-03T18:01:33.668056+00:00"
+      },
+      "Register.tsx": {
+        "path": "src/pages/Register.tsx",
+        "route": "/register",
+        "purpose": "New user registration page.",
+        "lastModified": "2026-03-03T18:02:11.535525+00:00"
+      },
+      "Taskdetail.tsx": {
+        "path": "src/pages/Taskdetail.tsx",
+        "route": "/",
+        "purpose": "View and edit details of a specific task.",
+        "lastModified": "2026-03-03T18:02:40.152738+00:00"
+      },
+      "Profile.tsx": {
+        "path": "src/pages/Profile.tsx",
+        "route": "/profile",
+        "purpose": "User account and settings page.",
+        "lastModified": "2026-03-03T18:03:06.998837+00:00"
+      },
+      "About.tsx": {
+        "path": "src/pages/About.tsx",
+        "route": "/about",
+        "purpose": "Information about the application.",
+        "lastModified": "2026-03-03T18:04:01.488377+00:00"
+      }
+    }
+  },
+  "backend": {
+    "framework": "fastapi",
+    "language": "python",
+    "baseUrl": "http://localhost:8056",
+    "database": {
+      "type": "sqlite",
+      "file": "backend/database.db",
+      "ormFile": "backend/database.py"
+    },
+    "models": {
+      "{{ModelName}}": {
+        "file": "backend/models/{{model_name}}.py",
+        "tableName": "{{table_name}}",
+        "fields": {
+          "id": {
+            "type": "Integer",
+            "primaryKey": true,
+            "autoIncrement": true
+          },
+          "{{fieldName}}": {
+            "type": "{{String|Integer|Boolean|Float|DateTime}}",
+            "nullable": false,
+            "unique": false,
+            "foreignKey": null
+          }
+        },
+        "relationships": {
+          "{{relatedModel}}": "{{one-to-many|many-to-one|many-to-many}}"
+        },
+        "usedInRoutes": []
+      },
+      "Task": {
+        "file": "backend/db/models.py",
+        "tableName": "tasks",
+        "fields": {
+          "id": {
+            "type": "Integer",
+            "primaryKey": true,
+            "autoIncrement": true
+          },
+          "title": {
+            "type": "String(255)",
+            "nullable": true,
+            "unique": false,
+            "foreignKey": null
+          },
+          "description": {
+            "type": "Text",
+            "nullable": true,
+            "unique": false,
+            "foreignKey": null
+          },
+          "status": {
+            "type": "String(255)",
+            "nullable": true,
+            "unique": false,
+            "foreignKey": null
+          },
+          "priority": {
+            "type": "String(255)",
+            "nullable": true,
+            "unique": false,
+            "foreignKey": null
+          },
+          "due_date": {
+            "type": "DateTime",
+            "nullable": true,
+            "unique": false,
+            "foreignKey": null
+          },
+          "is_done": {
+            "type": "Boolean",
+            "nullable": true,
+            "unique": false,
+            "foreignKey": null
+          },
+          "created_at": {
+            "type": "DateTime",
+            "nullable": true
+          },
+          "updated_at": {
+            "type": "DateTime",
+            "nullable": true
+          }
+        },
+        "relationships": {},
+        "usedInRoutes": [
+          "/api/tasks/",
+          "POST /api/tasks/",
+          "/api/tasks/{id}",
+          "DELETE /api/tasks/{id}"
+        ]
+      }
+    },
+    "routes": {
+      "{{/api/endpoint}}": {
+        "file": "backend/routes/{{route_file}}.py",
+        "method": "{{GET|POST|PUT|DELETE}}",
+        "purpose": "{{what this route does}}",
+        "requestBody": {
+          "{{fieldName}}": "{{type}}"
+        },
+        "responseSchema": {
+          "{{fieldName}}": "{{type}}"
+        },
+        "usesModels": [],
+        "requiresAuth": false
+      },
+      "/api/tasks/": {
+        "file": "backend/api/tasks.py",
+        "method": "GET",
+        "purpose": "List all tasks",
+        "requestBody": null,
+        "responseSchema": {
+          "title": "string",
+          "description": "text",
+          "status": "string",
+          "priority": "string",
+          "due_date": "datetime",
+          "is_done": "boolean"
+        },
+        "usesModels": [
+          "Task"
+        ],
+        "requiresAuth": false
+      },
+      "POST /api/tasks/": {
+        "file": "backend/api/tasks.py",
+        "method": "POST",
+        "purpose": "Create a new task",
+        "requestBody": {
+          "title": "string",
+          "description": "text",
+          "status": "string",
+          "priority": "string",
+          "due_date": "datetime",
+          "is_done": "boolean"
+        },
+        "responseSchema": {
+          "title": "string",
+          "description": "text",
+          "status": "string",
+          "priority": "string",
+          "due_date": "datetime",
+          "is_done": "boolean"
+        },
+        "usesModels": [
+          "Task"
+        ],
+        "requiresAuth": false
+      },
+      "/api/tasks/{id}": {
+        "file": "backend/api/tasks.py",
+        "method": "GET",
+        "purpose": "Get a single task by id",
+        "requestBody": null,
+        "responseSchema": {
+          "title": "string",
+          "description": "text",
+          "status": "string",
+          "priority": "string",
+          "due_date": "datetime",
+          "is_done": "boolean"
+        },
+        "usesModels": [
+          "Task"
+        ],
+        "requiresAuth": false
+      },
+      "DELETE /api/tasks/{id}": {
+        "file": "backend/api/tasks.py",
+        "method": "DELETE",
+        "purpose": "Delete a task by id",
+        "requestBody": null,
+        "responseSchema": {
+          "message": "string"
+        },
+        "usesModels": [
+          "Task"
+        ],
+        "requiresAuth": false
+      }
+    }
+  },
+  "crossLinks": {
+    "{{/api/endpoint}}": {
+      "consumedBy": [],
+      "usesModels": []
+    },
+    "/api/tasks/": {
+      "consumedBy": [],
+      "usesModels": [
+        "Task"
+      ]
+    },
+    "POST /api/tasks/": {
+      "consumedBy": [],
+      "usesModels": [
+        "Task"
+      ]
+    },
+    "/api/tasks/{id}": {
+      "consumedBy": [],
+      "usesModels": [
+        "Task"
+      ]
+    },
+    "DELETE /api/tasks/{id}": {
+      "consumedBy": [],
+      "usesModels": [
+        "Task"
+      ]
+    }
+  },
+  "publishedUrl": "https://a-todo-list-app-1772560755919.netlify.app",
+  "backendUrl": "https://a-todo-list-app-1772560755919.onrender.com",
+  "publishMode": "netlify+render"
+}
